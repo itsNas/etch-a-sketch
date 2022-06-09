@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch a sketch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <p class="title">Etch a sketch</p>
+        </header>
+        <div class="main">
+            <div class="control-panel">
+                <div class="color-pick">
+                    <div class="color-box">
+                        <input type="color" id="select-color">
+                    </div>
+                    <span>Pick you color</span>
+                </div>
+                <button class="btn" id="color-btn">Color mode</button>
+                <button class="btn" id="rainbow-btn">Rainbow mode</button>
+                <button class="btn" id="eraser-btn">Eraser</button>
+                <button class="btn" id="clear-btn">Clear</button>
+                <div class="slider-box">
+                    <input type="range" id="slider-value" value="16" min="1" max="64">
+                </div>
+                <p class="grid-size" id="size-value">16x16</p>
+            </div>
+            <div class="grid-wrapper"></div>
+        </div>
+        <footer>
+            <p>Copyright © The Odin Project 2022</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -1,15 +1,26 @@
-// default variable
-const defaultColor = "black";
-const defaultMode = "color";
-const defaultSize = 16
+//default variable
+const DEFAULT_COLOR = '#333333'
+const DEFAULT_MODE = 'color'
+const DEFAULT_SIZE = 16
 
-let currentColor = defaultColor;
-let currentMode = defaultMode;
-let currentSize = defaultSize;
+let currentColor = DEFAULT_COLOR
+let currentMode = DEFAULT_MODE
+let currentSize = DEFAULT_SIZE
 
-
+//set currentColor with new argument after onclick
+function setCurrentColor(newColor) {
+    currentColor = newColor;
+}
+//set currentMode with new argument after onclick
+function setCurrentMode(newMode) {
+    currentMode = newMode;
+}
+//set currentSize with new value after 
+function setCurrentSize(newSize) {
+    currentSize = newSize;
+}
 // Link various html element to script
-const gridBoard = document.getElementById('grid-board');
+const gridBoard = document.getElementById("grid-board");
 const gridSize = document.getElementById("grid-value");
 const sliderValue = document.getElementById("slider-value");
 const sizeValue = document.getElementById("size-value");
@@ -19,31 +30,36 @@ const rainbowBtn = document.getElementById("rainbow-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
 
-//set current color
-function setCurrentColor(newColor) {
-    currentColor = newColor;
-}
-//set current mode
-function setCurrentMode(newMode) {
-    currentMode = newMode;
-}
-//set current size
-function setCurrentSize(newSize) {
-    currentSize = newSize;
-}
-
 // DOM manipulation for button, slider and color selector
 colorSelector.oninput = (e) => setCurrentColor(e.target.value);
 colorBtn.onclick = () => setCurrentMode('color');
 rainbowBtn.onclick = () => setCurrentMode('rainbow');
 eraserBtn.onclick = () => setCurrentMode('eraser');
 clearBtn.onclick = () => reloadGrid();
-sliderValue.onchange = (e) => setupGrid(e.target.value);
 sliderValue.onmousemove = (e) => updateSize(e.target.value);
+sliderValue.onchange = (e) => changeSize(e.target.value);
+
+let mouseDown = false
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
+
+// When the size is changed, we set the grid size, update the size value (text), and reload the grid.
+function changeSize(value) {
+    setCurrentSize(value);
+    updateSize(value);
+    reloadGrid();
+}
+
 
 // when update the size, the text will changes according to value
 function updateSize(value) {
     sizeValue.innerHTML = `${value} x ${value}`
+}
+
+// When we reload the grid (which happens when "Clear grid" is pressed), we ensure that we clear the grid and that the size is still the current size.
+function reloadGrid() {
+    clearGrid();
+    setupGrid(currentSize);
 }
 
 //will clear the grid when clear button is pressed
@@ -51,18 +67,22 @@ function clearGrid() {
     gridBoard.innerHTML = '';
 }
 
-function reloadGrid() {
-    clearGrid();
-    setupGrid(currentSize);
-}
+// Creates the base grid and includes the code that says "when the mouse goes over the squares, draw."
+function setupGrid(size) {
+    gridBoard.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    gridBoard.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 
-function changeSize(value) {
-    setCurrentSize(value);
-    updateSize(value);
-    reloadGrid();
+    for (let i = 0; i < size * size; i++) {
+        const gridSquare = document.createElement("div");
+        gridSquare.classList.add("grid-square");
+        gridSquare.addEventListener("mouseover", changeColor);
+        gridSquare.addEventListener("mousedown", changeColor);
+        gridBoard.appendChild(gridSquare);
+    }
 }
 
 function changeColor(e) {
+    if (e.type === 'mouseover' && !mouseDown) return
     if (currentMode === 'rainbow') {
         const randomR = Math.floor(Math.random() * 256)
         const randomG = Math.floor(Math.random() * 256)
@@ -73,22 +93,8 @@ function changeColor(e) {
     } else if (currentMode === 'eraser') {
         e.target.style.backgroundColor = 'white'
     }
-    //this.style.backgroundColor = "black"
 }
 
-
-
-function setupGrid(size) {
-    gridBoard.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-    gridBoard.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-
-    for (let i = 0; i < size * size; i++) {
-        const gridSquare = document.createElement("div");
-        gridSquare.classList.add("grid-square");
-        gridSquare.addEventListener("mouseover", changeColor);
-        gridBoard.insertAdjacentElement("beforeend", gridSquare);
-    }
-}
 window.onload = () => {
-    setupGrid(defaultSize)
+    setupGrid(DEFAULT_SIZE)
 }

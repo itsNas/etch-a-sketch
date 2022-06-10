@@ -61,8 +61,7 @@ function clearGrid() {
 }
 
 // function to draw the sketch
-function draw() {
-    let size = currentSize
+function draw(size) {
     gridBoard.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
     gridBoard.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 

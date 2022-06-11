@@ -81,6 +81,7 @@ function setupGrid(size) {
     }
 }
 
+//change color section based on the button clicked 
 function changeColor(e) {
     if (e.type === 'mouseover' && !mouseDown) return
     if (currentMode === 'rainbow') {
@@ -95,6 +96,7 @@ function changeColor(e) {
     }
 }
 
+//reload the page and draw gird with default variable
 window.onload = () => {
     setupGrid(DEFAULT_SIZE)
 }

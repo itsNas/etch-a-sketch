@@ -58,13 +58,13 @@ main {
 }
 
 button:hover {
-    background-color: #0b478b;
+    background-color: #467ab4;
     color: white;
     opacity: 1;
 }
 
 button.active {
-    background-color: #0b478b;
+    background-color: #0b407c;
     color: white;
     opacity: 1;
 }

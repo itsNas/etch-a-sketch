@@ -1,13 +1,13 @@
 //set the default variable
-const defaultColor = 'black'
-const defaultBtn = 'color'
-const defaultSize = 32
+const defaultColor = "black";
+const defaultBtn = "color";
+const defaultSize = 32;
 
-let currentColor = defaultColor
-let currentBtn = defaultBtn
-let currentSize = defaultSize
+let currentColor = defaultColor;
+let currentBtn = defaultBtn;
+let currentSize = defaultSize;
 
-//link all html elements so we can start manipulate the DOM 
+//link all html elements so we can start manipulate the DOM
 const colorSelector = document.getElementById("color-selector");
 const colorBtn = document.getElementById("color-btn");
 const rainbowBtn = document.getElementById("rainbow-btn");
@@ -24,20 +24,20 @@ rainbowBtn.onclick = () => setCurrentBtn("rainbow");
 eraserBtn.onclick = () => setCurrentBtn("eraser");
 clearBtn.onclick = () => reloadGrid();
 sizeSlider.onchange = (e) => changeSize(e.target.value);
-sizeSlider.onmousemove = (e) => updateSizeValue(e.target.value)
+sizeSlider.onmousemove = (e) => updateSizeValue(e.target.value);
 
 //set current parameter section
 function setCurrentColor(newColor) {
-    currentColor = newColor
+    currentColor = newColor;
 }
 
 function setCurrentBtn(newBtn) {
-    activateBtn(newBtn)
-    currentBtn = newBtn
+    activateBtn(newBtn);
+    currentBtn = newBtn;
 }
 
 function setCurrentSize(newSize) {
-    currentSize = newSize
+    currentSize = newSize;
 }
 
 //change size section
@@ -48,7 +48,7 @@ function changeSize(value) {
 }
 
 function updateSizeValue(num) {
-    sizeValue.innerHTML = `${num} x ${num}`
+    sizeValue.innerHTML = `${num} x ${num}`;
 }
 
 //reload grid section
@@ -58,7 +58,7 @@ function reloadGrid() {
 }
 
 function clearGrid() {
-    gridBoard.innerHTML = '';
+    gridBoard.innerHTML = "";
 }
 
 // function to draw the sketch
@@ -67,10 +67,10 @@ function draw(size) {
     gridBoard.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 
     for (let i = 0; i < size * size; i++) {
-        const gridSquare = document.createElement("div")
-        gridSquare.classList.add = ("grid-square")
-        gridSquare.style.border = '1px grey solid'
-        gridSquare.addEventListener("mouseover", changeColor)
+        const gridSquare = document.createElement("div");
+        gridSquare.classList.add = "grid-square";
+        gridSquare.style.border = "1px grey solid";
+        gridSquare.addEventListener("mouseover", changeColor);
         gridBoard.appendChild(gridSquare);
     }
 }
@@ -78,10 +78,10 @@ function draw(size) {
 //change color section
 function changeColor(e) {
     if (currentBtn === "rainbow") {
-        const randomR = Math.floor(Math.random() * 256)
-        const randomG = Math.floor(Math.random() * 256)
-        const randomB = Math.floor(Math.random() * 256)
-        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`
+        const randomR = Math.floor(Math.random() * 256);
+        const randomG = Math.floor(Math.random() * 256);
+        const randomB = Math.floor(Math.random() * 256);
+        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
     } else if (currentBtn === "color") {
         e.target.style.backgroundColor = currentColor;
     } else if (currentBtn === "eraser") {
@@ -92,23 +92,22 @@ function changeColor(e) {
 // activate styling when user choose mode
 function activateBtn(newBtn) {
     if (currentBtn === "rainbow") {
-        rainbowBtn.classList.remove('active')
+        rainbowBtn.classList.remove("active");
     } else if (currentBtn === "color") {
-        colorBtn.classList.remove('active')
+        colorBtn.classList.remove("active");
     } else if (currentBtn === "eraser") {
-        eraserBtn.classList.remove('active')
+        eraserBtn.classList.remove("active");
     }
     if (newBtn === "rainbow") {
-        rainbowBtn.classList.add('active')
+        rainbowBtn.classList.add("active");
     } else if (newBtn === "color") {
-        colorBtn.classList.add('active')
+        colorBtn.classList.add("active");
     } else if (newBtn === "eraser") {
-        eraserBtn.classList.add('active')
+        eraserBtn.classList.add("active");
     }
 }
 
-
 window.onload = () => {
-    draw(defaultSize)
-    activateBtn(defaultBtn)
-}
+    draw(defaultSize);
+    activateBtn(defaultBtn);
+};

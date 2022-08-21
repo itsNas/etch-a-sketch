@@ -79,18 +79,18 @@ button {
     width: 150px;
 }
 
-/* button:active {
-    background-color: #3F86D8;
+button:active {
+    background-color: #3f86d8;
     color: white;
     border: 1px solid black;
 }
 
 .active {
-    background-color: #3F86D8;
+    background-color: #3f86d8;
     transition: 0.3s;
     color: white;
     border: 1px solid black;
-} */
+}
 
 .size {
     text-align: center;
